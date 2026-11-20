@@ -24,7 +24,7 @@ def evaluate_application(application: LoanApplication) -> DecisionResponse:
         reason_trail.append("Rule 1 (employment): passed - applicant is currently employed")
     else:
         needs_review = True
-        reason_trail.append("Rule 1 (employment): flagged - unenployed applicants require human review")
+        reason_trail.append("Rule 1 (employment): flagged - unemployed applicants require human review")
     
     # Rule 2
     estimated_monthly_payment = application.amount / application.term_months
@@ -73,7 +73,7 @@ def evaluate_application(application: LoanApplication) -> DecisionResponse:
             reason_trail=reason_trail,
         )
         
-    interest_rate = 5.5 if ai_score >= 0.05 else 6.5
+    interest_rate = 5.5 if ai_score >= 0.80 else 6.5
     return DecisionResponse(
         decision="approve",
         interest_rate=interest_rate,
